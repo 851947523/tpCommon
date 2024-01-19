@@ -1,0 +1,25 @@
+{
+    "name": "gz/tp-common",
+    "version": "1.0",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Gz\\TpCommon\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "gaozhe",
+            "email": "851947523@qq.com"
+        }
+    ],
+    "repositories": {
+        "gz/utools": {
+            "type": "path",
+            "url": "C:\\Users\\Administrator\\Desktop\\utools"
+        }
+    },
+    "require": {
+        "gz/utools": "^1.0"
+    }
+}
