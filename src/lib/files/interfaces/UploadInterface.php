@@ -1,6 +1,6 @@
 <?php
 
-namespace gz\tp6Common\lib\files\interfaces;
+namespace gz\TpCommon\lib\files\interfaces;
 
 interface UploadInterface
 {

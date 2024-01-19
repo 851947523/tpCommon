@@ -1,8 +1,8 @@
 <?php
 
-namespace Gz\Tp6Common\consts;
+namespace Gz\TpCommon\consts;
 
-use Gz\Tp6Common\consts\interfaces\StatusInterface;
+use Gz\TpCommon\consts\interfaces\StatusInterface;
 use think\facade\Config;
 use think\facade\Lang;
 

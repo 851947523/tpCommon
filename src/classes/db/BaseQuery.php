@@ -1,14 +1,14 @@
 <?php
 declare (strict_types=1);
 
-namespace Gz\Tp6Common\classes\db;
+namespace Gz\TpCommon\classes\db;
 
 /**
  * @mixin Query;
  * @mixin Model;
  */
 
-use Gz\Tp6Common\consts\Status;
+use Gz\TpCommon\consts\Status;
 use think\db\Query;
 use think\Exception;
 use think\facade\Request;

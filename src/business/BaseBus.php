@@ -1,13 +1,13 @@
 <?php
 
-namespace Gz\Tp6Common\business;
+namespace Gz\TpCommon\business;
 
-use Gz\Tp6Common\classes\db\BaseQuery;
+use Gz\TpCommon\classes\db\BaseQuery;
 
 
 use Gz\Utools\Instance\Instance;
 use think\db\Query;
-
+use think\facade\Request;
 
 /**
  *  editor: gz,

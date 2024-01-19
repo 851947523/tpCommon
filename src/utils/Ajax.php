@@ -1,8 +1,8 @@
 <?php
 
-namespace Gz\Tp6Common\utils;
+namespace Gz\TpCommon\utils;
 
-use Gz\Tp6Common\consts\Status;
+use Gz\TpCommon\consts\Status;
 
 class Ajax
 {

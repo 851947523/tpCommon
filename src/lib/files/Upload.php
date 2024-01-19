@@ -1,9 +1,9 @@
 <?php
 
-namespace gz\tp6Common\lib\files;
+namespace gz\TpCommon\lib\files;
 
-use Gz\Tp6Common\classes\Instance\Instance;
-use gz\tp6Common\lib\files\interfaces\UploadInterface;
+use Gz\TpCommon\classes\Instance\Instance;
+use gz\TpCommon\lib\files\interfaces\UploadInterface;
 
 class Upload implements UploadInterface
 {

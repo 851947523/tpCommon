@@ -1,11 +1,11 @@
 <?php
 
-namespace Gz\Tp6Common\exception;
+namespace Gz\TpCommon\exception;
 
 
 
-use Gz\Tp6Common\consts\Status;
-use Gz\Tp6Common\utils\Ajax;
+use Gz\TpCommon\consts\Status;
+use Gz\TpCommon\utils\Ajax;
 
 use think\Response as TpResponse;
 

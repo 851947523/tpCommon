@@ -1,6 +1,6 @@
 <?php
 
-namespace Gz\Tp6Common\consts\interfaces;
+namespace Gz\TpCommon\consts\interfaces;
 /**
  * @method emptyModel()   模型不能为空
  * @method timeTypeError()  时间格式错误

@@ -1,10 +1,10 @@
 <?php
 
-namespace Gz\Tp6Common\exception\handle;
+namespace Gz\TpCommon\exception\handle;
 
 
-use Gz\Tp6Common\exception\Error;
-use Gz\Tp6Common\utils\Ajax;
+use Gz\TpCommon\exception\Error;
+use Gz\TpCommon\utils\Ajax;
 use think\exception\Handle;
 use think\Response;
 use Throwable;

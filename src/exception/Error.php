@@ -1,6 +1,6 @@
 <?php
 
-namespace Gz\Tp6Common\exception;
+namespace Gz\TpCommon\exception;
 
 
 use think\exception\HttpException;
