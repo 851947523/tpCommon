@@ -12,13 +12,7 @@
             "email": "851947523@qq.com"
         }
     ],
-    "repositories": {
-        "gz/utools": {
-            "type": "path",
-            "url": "C:\\Users\\Administrator\\Desktop\\utools"
-        }
-    },
-    "require": {
-        "gz/utools": "^1.0"
+     "require": {
+        "gz/utools": "^2.0"
     }
 }
