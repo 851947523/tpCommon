@@ -2,8 +2,9 @@
 
 namespace gz\TpCommon\lib\files;
 
-use Gz\TpCommon\classes\Instance\Instance;
-use gz\TpCommon\lib\files\interfaces\UploadInterface;
+
+use Gz\TpCommon\lib\files\interfaces\UploadInterface;
+use Gz\Utools\Instance\Instance;
 
 class Upload implements UploadInterface
 {
