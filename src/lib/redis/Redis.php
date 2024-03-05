@@ -2,11 +2,12 @@
 
 namespace Gz\TpCommon\lib\redis;
 
-use app\lib\ajax\Ajax;
-use app\lib\constMsg\Status;
+
 use Gz\Utools\Instance\Instance;
+use think\facade\Cache;
 
 /**
+ * @mixin \Redis;
  *  editor: gz,
  *  motto: 大自然的搬运工
  *  time: 2024-02-06
@@ -14,4 +15,11 @@ use Gz\Utools\Instance\Instance;
 class Redis
 {
     use Instance;
+
+
+    public static function __callStatic($name, $argument)
+    {
+        
+        return Cache::store('redis')->$name(...$argument);
+    }
 }

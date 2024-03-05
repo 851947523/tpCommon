@@ -17,6 +17,7 @@ use think\Model;
 trait BaseQuery
 {
     public $model;
+    public $attrs;
 
 
     public function __call($method, $args)
@@ -42,8 +43,8 @@ trait BaseQuery
             //var_dump($this->model);
             /** @var  \think\Model */
             $model = $this->model;
-            if (isset($this->options['append'])) {
-                $data['data'] = $model->select()->append($this->options['append']);
+            if (isset($this->attrs['append'])) {
+                $data['data'] = $model->select()->append($this->attrs['append']);
             } else {
                 $data['data'] = $model->select();
             }
@@ -56,7 +57,7 @@ trait BaseQuery
 
     public function append($append = [])
     {
-        $this->options['append'] = $append;
+        $this->attrs['append'] = $append;
         return $this;
     }
 
