@@ -19,7 +19,6 @@ class Redis
 
     public static function __callStatic($name, $argument)
     {
-        
         return Cache::store('redis')->$name(...$argument);
     }
 }

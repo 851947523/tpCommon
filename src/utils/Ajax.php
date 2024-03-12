@@ -15,10 +15,13 @@ class Ajax
      */
     static function success($msg = 'success', $data = [], $httpCode = 200)
     {
+
         $result = ['code' => Status::$codeSuc, 'msg' => $msg];
         if ($data) {
             $result['data'] = $data;
         }
+
+
         return json($result, $httpCode);
     }
 
