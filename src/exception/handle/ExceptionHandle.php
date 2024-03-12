@@ -1,5 +1,4 @@
 <?php
-
 namespace Gz\TpCommon\exception\handle;
 
 
