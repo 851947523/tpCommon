@@ -45,9 +45,9 @@ trait BaseQuery
             /** @var  \think\Model */
             $model = $this->model;
             if (isset($this->attrs['append'])) {
-                $data['data'] = $model->page(input('current_page', 1,'intval'), input('limit', 30))->select()->append($this->attrs['append']);
+                $data['data'] = $model->page(input('current_page', 1,'intval'), input('limit', 30,'intval'))->select()->append($this->attrs['append']);
             } else {
-                $data['data'] = $model->page(input('current_page', 1,'intval'), input('limit', 30))->select();
+                $data['data'] = $model->page(input('current_page', 1,'intval'), input('limit', 30,'intval'))->select();
             }
             $data['count'] = $this->model->count();
             return $data;
