@@ -50,3 +50,18 @@ throw new Error("msg");
 use Gz\TpCommon\exception\Response;
 return Response::instance()->send("msg",$data,$code);
 ~~~
+
+# 表
+## 默认配置表
+前端文件路径存放等
+~~~
+CREATE TABLE `jsdh_config` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `en_name` varchar(100) DEFAULT NULL,
+  `zh_name` varchar(255) DEFAULT NULL,
+  `value` varchar(255) DEFAULT NULL COMMENT '值',
+  `desc` varchar(255) DEFAULT NULL COMMENT '默认商户模板',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `en_name` (`en_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='默认配置';
+~~~
