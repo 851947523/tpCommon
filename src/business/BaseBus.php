@@ -33,7 +33,7 @@ abstract class BaseBus
         $this->param = Request::param();
     }
 
-    public function getDetailById($id)
+    public function getById($id)
     {
         return $this->model->where([
             'id' => $id,
@@ -53,41 +53,8 @@ abstract class BaseBus
         ];
     }
 
-    /**
-     * 设置缓存
-     * @return void
-     */
-    public function setCacheAllPre($merchant_id, $pre)
-    {
 
-        $resultData = $this->model->where("merchant_id", $merchant_id)->select();
-        $resultData = $resultData ? $resultData->toArray() : $resultData;
-        $data = [];
-        foreach ($resultData as $v) {
-            $data[$v['id']] = $v;
-        }
-        Redis::set($pre, $data);
-        return $data;
-    }
 
-    /**
-     * 获取缓存
-     * @param $merchant_id
-     * @return false|mixed|\Redis|string|null
-     * @throws \RedisException
-     */
-    public function getCacheAllPre($merchant_id, $pre = '')
-    {
-
-        if (empty($merchant_id) || empty($pre)) return false;
-        $data = Redis::get($pre);
-        if ($data) {
-            return $data;
-        }
-        $data = $this->setCacheAllPre($merchant_id, $pre);
-        return $data;
-
-    }
 
     /**
      * @return void
@@ -103,7 +70,7 @@ abstract class BaseBus
      * 新增
      * @return void
      */
-    public function saveData($data)
+    public function save($data)
     {
         return $this->model->save($data);
 
