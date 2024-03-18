@@ -54,6 +54,9 @@ return Response::instance()->send("msg",$data,$code);
 # 表
 ## 默认配置表
 前端文件路径存放等
+
+value字段格式: [{"key":"merchantTpl","value":"merchantTpl"}]
+
 ~~~
 CREATE TABLE `jsdh_config` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

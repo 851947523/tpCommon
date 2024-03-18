@@ -25,11 +25,15 @@ class ConfigBus
      * @param $en_name
      * @return mixed
      */
-    public function getValueByEnname($prefix = '', $en_name = '')
+    public function getValueByEnname($prefix = '', $en_name = '', $key = '')
     {
         $this->preFix = $prefix;
         $table = $this->preFix . $this->table;
+        //{key:xxx,value:xxxx}
         $value = \think\facade\Db::table($table)->where(['en_name' => $en_name])->value('value');
-        return $value;
+        $valueArr = is_string($value) ? json_decode($value,true) : $value;
+        $result = $valueArr && is_array($valueArr) ? array_column($valueArr,'key','value') : $valueArr;
+       // var_dump($result);exit;
+        return $result;
     }
 }
