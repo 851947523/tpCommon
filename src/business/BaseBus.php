@@ -82,8 +82,6 @@ abstract class BaseBus
      */
     public function updateById($id, $data)
     {
-        if (empty($merchant_id)) return false;
-        $data['merchant_id'] = $merchant_id;
         $detail = $this->getDetailById($id);
         if (empty($detail)) return false;
         $result = $this->model::update($data, [
