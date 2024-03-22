@@ -43,13 +43,17 @@ trait BaseQuery
             //var_dump($this->model);
 
             /** @var  \think\Model */
+            $data['count'] = $this->model->count();
             $model = $this->model;
             if (isset($this->attrs['append'])) {
-                $data['data'] = $model->page(input('current_page', 1,'intval'), input('limit', 30,'intval'))->select()->append($this->attrs['append']);
+                $data['data'] = $model
+                    ->order($this->attrs['order'] ?? '')
+                    ->page(input('current_page', 1,'intval'), input('limit', 30,'intval'))->select()->append($this->attrs['append']);
             } else {
-                $data['data'] = $model->page(input('current_page', 1,'intval'), input('limit', 30,'intval'))->select();
+                $data['data'] = $model
+                    ->order($this->attrs['order'] ?? '')
+                    ->page(input('current_page', 1,'intval'), input('limit', 30,'intval'))->select();
             }
-            $data['count'] = $this->model->count();
             return $data;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
@@ -59,6 +63,11 @@ trait BaseQuery
     public function append($append = [])
     {
         $this->attrs['append'] = $append;
+        return $this;
+    }
+
+    public function order($order){
+        $this->attrs['order'] = $order;
         return $this;
     }
 
