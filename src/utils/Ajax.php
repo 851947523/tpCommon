@@ -39,21 +39,4 @@ class Ajax
             'msg' => $msg
         ], $httpCode, $header, $options);
     }
-
-    /**
-     * 其他异常
-     * @param $code
-     * @param $msg
-     * @param $httpCode
-     * @param $header
-     * @param $options
-     * @return \think\response\Json
-     */
-    static function exception($code, $msg, $httpCode = 200, $header = [], $options = [])
-    {
-        return json([
-            'code' => $code,
-            'msg' => $msg
-        ], $httpCode, $header, $options);
-    }
 }

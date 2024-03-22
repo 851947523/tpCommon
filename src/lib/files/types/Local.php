@@ -13,7 +13,7 @@ use think\facade\Config;
  */
 class Local extends Base
 {
-    public function uploadSingle($validateType = ['file'=>'fileSize:1024000'])
+    public function uploadSingle($validateType = ['file'=>'fileSize:1024000|fileExt:jpg,png'])
     {
         try {
             // 获取表单上传文件 例如上传了001.jpg

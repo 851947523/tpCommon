@@ -7,7 +7,6 @@ namespace Gz\TpCommon\exception;
 use Gz\TpCommon\consts\Status;
 use Gz\TpCommon\utils\Ajax;
 
-use Gz\Utools\Instance\Instance;
 use think\Response as TpResponse;
 
 /**
