@@ -31,11 +31,11 @@ class Ajax
      * @param $code
      * @return \think\response\Json
      */
-    static function error($msg = 'error',$code = '', $httpCode = 200, $header = [], $options = [])
+    static function error($msg = 'error', $httpCode = 200, $header = [], $options = [])
     {
 
         return json([
-            'code' => empty($code) ? Status::$codeDefault : $code,
+            'code' => Status::$codeDefault,
             'msg' => $msg
         ], $httpCode, $header, $options);
     }

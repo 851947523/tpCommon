@@ -13,7 +13,7 @@ use think\facade\Config;
  */
 class Local extends Base
 {
-    public function uploadSingle($validateType = ['file'=>'fileSize:1024000|fileExt:jpg,png'])
+    public function uploadSingle($validateType = ['file'=>'fileSize:1024000|fileExt:jpg,png,p12'],$disk = 'local')
     {
         try {
             // 获取表单上传文件 例如上传了001.jpg
@@ -21,7 +21,7 @@ class Local extends Base
             validate($validateType)->check([$this->filename=>$file]);
             if (!$file) return;
              // 上传到本地服务器
-            $savename = \think\facade\Filesystem::putFile('upload/' . $this->bucket, $file);
+            $savename = \think\facade\Filesystem::disk($disk)->putFile('upload/' . $this->bucket, $file);
             return [
                 'path' => '/' . $savename,
                 'ext' => $file->getOriginalExtension(),
