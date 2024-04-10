@@ -23,10 +23,9 @@ trait Notify
      */
     public function handlePaid($type = 'v3', $APIv3_KEY = '')
     {
-
         // 获取微信回调的XML数据
         $xmlData = file_get_contents('php://input');
-
+        file_put_contents('payXml',json_encode($xmlData));
         if (empty($xmlData)) throw new Error('错误响应');
         if ($type == 'v3') {
             //需要解密获取$APIv3_KEY
@@ -51,6 +50,7 @@ trait Notify
         return $result;
     }
 
+
     /**
      * https://github.com/wechatpay-apiv3/wechatpay-php#%E5%9B%9E%E8%B0%83%E9%80%9A%E7%9F%A5
      * v3 解密
@@ -59,8 +59,8 @@ trait Notify
      */
     function decryptWechatpayData($apiv3Key, $xmlData)
     {
-        $file = file_get_contents('payXml.txt');
-        $file = json_decode(json_decode($file, true), true);
+//        $file = file_get_contents('payXml.txt');
+//        $file = json_decode(json_decode($file, true), true);
         $inBodyArray = (array)json_decode($xmlData, true);
         ['resource' => [
             'ciphertext' => $ciphertext,

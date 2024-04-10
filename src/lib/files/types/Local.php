@@ -17,11 +17,11 @@ class Local extends Base
     {
         try {
             // 获取表单上传文件 例如上传了001.jpg
-            $file = request()->file($this->filename);
-            validate($validateType)->check([$this->filename=>$file]);
+            $file = request()->file($this->config['filename']);
+            validate($validateType)->check([$this->config['filename']=>$file]);
             if (!$file) return;
              // 上传到本地服务器
-            $savename = \think\facade\Filesystem::disk($disk)->putFile('upload/' . $this->bucket, $file);
+            $savename = \think\facade\Filesystem::disk($disk)->putFile('upload/' . $this->config['bucket'], $file);
             return [
                 'path' => '/' . $savename,
                 'ext' => $file->getOriginalExtension(),

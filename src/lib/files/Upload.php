@@ -23,9 +23,8 @@ class Upload
      * @param $type  local:本地 Qny:七牛云
      * @return $this;
      */
-    public function init($filename = 'file', $bucket = 'image', $type = '')
+    public function init($type = 'Local')
     {
-        if ($type == '') $type = 'Local';
         $reflection = new \ReflectionClass("Gz\\TpCommon\\lib\\files\\types\\{$type}");
         if (!$reflection->isInstantiable()) { //如果不能被实例化
             return false;
@@ -34,8 +33,6 @@ class Upload
         $constructor = $reflection->getConstructor(); //获取构造函数
         $parameters = $constructor->getParameters(); //获取contruct参数,数组
         $params = [];
-        $params['filename'] = $filename;
-        $params['bucket'] = $bucket;
         if ($parameters) {
             foreach ($parameters as $k => $v) {
                 $class = $v->getType();

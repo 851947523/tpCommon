@@ -12,20 +12,31 @@ use Gz\TpCommon\lib\files\interfaces\UploadInterface;
  */
 class Base implements UploadInterface
 {
-    public $config = [];
-    public $bucket = ''; //上传空间名路径
-    public $filename = ""; //需要获取上传的文件名
+    public $config = [
+        'filename'=>'file', //上传文件参数名
+        'bucket'=> 'image', //上传空间名
+    ];
+
 
     /**
      * @param $attr ['config'=> ['name'=> '空间名称']]
      */
-    public function __construct($filename = '', $bucket = '', $attr = [])
+    public function __construct($attr = [])
     {
-        $this->config = $attr['config'] ?? [];
-        $this->filename = $filename;
-        $this->bucket = $bucket;
+
 
     }
+
+    /**
+     * @param $config
+     * @return $this
+     */
+    public function setConfig($config){
+        $config = array_merge($this->config,$config);
+        $this->config = $config;
+        return $this;
+    }
+
 
     public function uploadSingle()
     {

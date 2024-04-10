@@ -7,7 +7,7 @@ use Gz\Utools\Instance\Instance;
 use think\facade\Cache;
 
 /**
- * @mixin \Redis;
+ *  @mixin \Redis;
  *  editor: gz,
  *  motto: 大自然的搬运工
  *  time: 2024-02-06

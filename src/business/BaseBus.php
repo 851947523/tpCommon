@@ -28,6 +28,7 @@ abstract class BaseBus
      */
     protected $param;
 
+
     public function __construct()
     {
         $this->param = Request::param();
@@ -52,8 +53,6 @@ abstract class BaseBus
             ...Request::param()
         ];
     }
-
-
 
 
     /**
@@ -84,6 +83,7 @@ abstract class BaseBus
     {
         $detail = $this->getDetailById($id);
         if (empty($detail)) return false;
+        $data = is_object($data) ? $data->toArray() : $data;
         $result = $this->model::update($data, [
             'id' => $id,
         ]);
