@@ -43,18 +43,10 @@ trait BaseQuery
             /** @var  \think\Model */
             $data['count'] = $this->model->count();
             $model = $this->model;
-            if ($bool) {
-                $model = $model->cache($bool,$expire, $tag);
-            }
-            if (isset($this->attrs['append'])) {
-                $data['data'] = $model
-                    ->order($this->attrs['order'] ?? '')
-                    ->page(input('current_page', 1, 'intval'), input('limit', 30, 'intval'))->select()->append($this->attrs['append']);
-            } else {
-                $data['data'] = $model
-                    ->order($this->attrs['order'] ?? '')
-                    ->page(input('current_page', 1, 'intval'), input('limit', 30, 'intval'))->select();
-            }
+            if ($bool) $model = $model->cache($bool, $expire, $tag);
+            $data['data'] = $model
+                ->order($this->attrs['order'] ?? '')
+                ->page(input('current_page', 1, 'intval'), input('limit', 30, 'intval'))->select()->append($this->attrs['append']??[]);
             return $data;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
@@ -63,19 +55,15 @@ trait BaseQuery
 
     public function selectAll($bool = false, $expire = null, $tag = '')
     {
-        if (empty($this->model)) {
-            throw new Exception(Status::emptyModel());
-        }
+
+        if (empty($this->model)) throw new Exception(Status::emptyModel());
         try {
-            //var_dump($this->model);
-            /** @var  \think\Model */
-            $data['count'] = $this->model->count();
             $model = $this->model;
             if ($bool) {
                 $model = $model->cache($bool, $expire, $tag);
             }
-            $data['data'] = $model
-                ->order($this->attrs['order'] ?? '')->select()->append($this->attrs['append']);
+            $data = $model
+                ->order($this->attrs['order'] ?? '')->select()->append($this->attrs['append'] ?? []);
             return $data;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
