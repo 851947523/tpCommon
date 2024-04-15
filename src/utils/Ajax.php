@@ -28,14 +28,14 @@ class Ajax
     /**
      * 错误返回
      * @param $msg
-     * @param $code
+     * @param int $code
      * @return \think\response\Json
      */
-    static function error($msg = 'error', $httpCode = 200, $header = [], $options = [])
+    static function error($msg = 'error', int $code, $httpCode = 200, $header = [], $options = [])
     {
 
         return json([
-            'code' => Status::$codeDefault,
+            'code' => empty($code) ? Status::$codeDefault : $code,
             'msg' => $msg
         ], $httpCode, $header, $options);
     }
