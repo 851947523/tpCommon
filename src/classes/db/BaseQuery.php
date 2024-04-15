@@ -19,7 +19,6 @@ trait BaseQuery
     public $model;
     public $attrs;
 
-
     public function __call($method, $args)
     {
         if (!isset($this->model) || empty($this->model)) {
@@ -34,7 +33,7 @@ trait BaseQuery
      * @return array
      * @throws Exception
      */
-    public function selectPage($bool = false,$expire = 0,$tag = '')
+    public function selectPage($bool = false, $expire = 0, $tag = '')
     {
         if (empty($this->model)) {
             throw new Exception(Status::emptyModel());
@@ -50,11 +49,11 @@ trait BaseQuery
             if (isset($this->attrs['append'])) {
                 $data['data'] = $model
                     ->order($this->attrs['order'] ?? '')
-                    ->page(input('current_page', 1,'intval'), input('limit', 30,'intval'))->select()->append($this->attrs['append']);
+                    ->page(input('current_page', 1, 'intval'), input('limit', 30, 'intval'))->select()->append($this->attrs['append']);
             } else {
                 $data['data'] = $model
                     ->order($this->attrs['order'] ?? '')
-                    ->page(input('current_page', 1,'intval'), input('limit', 30,'intval'))->select();
+                    ->page(input('current_page', 1, 'intval'), input('limit', 30, 'intval'))->select();
             }
             return $data;
         } catch (\Exception $e) {
@@ -68,7 +67,8 @@ trait BaseQuery
         return $this;
     }
 
-    public function order($order){
+    public function order($order)
+    {
         $this->attrs['order'] = $order;
         return $this;
     }
