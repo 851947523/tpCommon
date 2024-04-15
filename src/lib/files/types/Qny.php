@@ -73,7 +73,7 @@ class Qny extends Base
 
 
     /**
-     * 直传 回调处理
+     * 直传 回调处理,七牛云回调处理
      * @return void
      */
     public function handleNotify()
