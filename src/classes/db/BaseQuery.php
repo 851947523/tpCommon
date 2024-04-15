@@ -34,17 +34,19 @@ trait BaseQuery
      * @return array
      * @throws Exception
      */
-    public function selectPage()
+    public function selectPage($bool,$expire = 0,$tag = '')
     {
         if (empty($this->model)) {
             throw new Exception(Status::emptyModel());
         }
         try {
             //var_dump($this->model);
-
             /** @var  \think\Model */
             $data['count'] = $this->model->count();
             $model = $this->model;
+            if ($bool) {
+                $model = $model->cache($expire, '', $tag);
+            }
             if (isset($this->attrs['append'])) {
                 $data['data'] = $model
                     ->order($this->attrs['order'] ?? '')
