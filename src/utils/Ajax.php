@@ -31,7 +31,7 @@ class Ajax
      * @param int $code
      * @return \think\response\Json
      */
-    static function error($msg = 'error', int $code, $httpCode = 200, $header = [], $options = [])
+    static function error($msg = 'error', int $code = -1, $httpCode = 200, $header = [], $options = [])
     {
 
         return json([
