@@ -34,7 +34,7 @@ trait BaseQuery
      * @return array
      * @throws Exception
      */
-    public function selectPage($bool,$expire = 0,$tag = '')
+    public function selectPage($bool = false,$expire = 0,$tag = '')
     {
         if (empty($this->model)) {
             throw new Exception(Status::emptyModel());
