@@ -17,11 +17,7 @@ class Ajax
     {
 
         $result = ['code' => Status::$codeSuc, 'msg' => $msg];
-        if ($data) {
-            $result['data'] = $data;
-        }
-
-
+        $result['data'] = $data;
         return json($result, $httpCode);
     }
 
