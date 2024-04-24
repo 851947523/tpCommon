@@ -45,7 +45,7 @@ class Qny extends Base
         if (!isset($this->config['bucket'])) throw new Error('bucket不能为空');
         $cachePre = 'upload_qniuyun_';
         $config = Redis::get($cachePre);
-        if ($config) return $config;
+        if ($config && isset($config['token'])) return $config;
         $policy = [];
         if (!empty($callbackUrl)) {
             $policy = [
@@ -61,15 +61,14 @@ class Qny extends Base
             ];
         }
         $auth = new Auth($this->config['ak'], $this->config['sk']);
-        $token = $auth->uploadToken($this->config['bucket'], null, $this->config['expire_time'] ?? 3600, $policy, true);
-        $config = [
+        $token = $auth->uploadToken($this->config['bucket'], null, 3600, $policy, true);
+        $config = [ 
             'token' => $token,
             'bucket' => $this->config['bucket'],
             'upload_url' => $this->config['upload_url'],
             'host' => $this->config['host'] ?? '',
         ];
-
-        Redis::set($cachePre, $config,1800);
+        Redis::set($cachePre, $config, 600);
         return $config;
     }
 
