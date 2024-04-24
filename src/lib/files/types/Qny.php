@@ -65,9 +65,11 @@ class Qny extends Base
         $config = [
             'token' => $token,
             'bucket' => $this->config['bucket'],
-            'upload_url' => $this->config['upload_url']
+            'upload_url' => $this->config['upload_url'],
+            'host' => $this->config['host'] ?? '',
         ];
-        Redis::set($cachePre, $config, $this->config['expire_time']);
+
+        Redis::set($cachePre, $config,1800);
         return $config;
     }
 
