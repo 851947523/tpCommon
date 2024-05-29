@@ -31,9 +31,7 @@ class ConfigBus
         $table = $this->preFix . $this->table;
         //{key:xxx,value:xxxx}
         $value = \think\facade\Db::table($table)->where(['en_name' => $en_name])->value('value');
-        $valueArr = is_string($value) ? json_decode($value,true) : $value;
-        $result = $valueArr && is_array($valueArr) ? array_column($valueArr,'key','value') : $valueArr;
-       // var_dump($result);exit;
-        return $result;
+        $valueArr = is_string($value) ? json_decode($value, true) : $value;
+        return $valueArr;
     }
 }
