@@ -62,7 +62,7 @@ class Qny extends Base
         }
         $auth = new Auth($this->config['ak'], $this->config['sk']);
         $token = $auth->uploadToken($this->config['bucket'], null, 3600, $policy, true);
-        $config = [ 
+        $config = [
             'token' => $token,
             'bucket' => $this->config['bucket'],
             'upload_url' => $this->config['upload_url'],
@@ -116,4 +116,24 @@ class Qny extends Base
 //
 //    }
 
+
+    public function delete(array $key)
+    {
+        $keyArr = is_array($key) ?: [$key];
+        $accessKey = $this->config['ak'];
+        $secretKey = $this->config['sk'];
+        $bucket = $this->config['bucket'];
+        var_dump($keyArr);exit;
+        $key = "qiniu.mp4_copy";
+        $auth = new Auth($accessKey, $secretKey);
+        $config = new \Qiniu\Config();
+        $bucketManager = new \Qiniu\Storage\BucketManager($auth, $config);
+        $err = $bucketManager->delete($bucket, $key);
+        if ($err) {
+            print_r($err);
+        } else {
+
+        }
+
+    }
 }
