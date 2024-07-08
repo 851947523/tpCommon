@@ -54,10 +54,12 @@ trait BaseQuery
                 ->order($this->attrs['order'] ?? '')
                 ->page(input('current_page', 1, 'intval'), input('limit', 30, 'intval'))
                 ->select()
-                ->append($this->attrs['append'] ?? [])
-                ->each($this->attrs['each'] ?? function ($item) {
+                ->append($this->attrs['append'] ?? []);
+            if (!empty($this->attrs['each'])) {
+                $data['data'] = $data['data']->each($this->attrs['each'] ?? function ($item) {
                     return $item;
                 });
+            }
             return $data;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
