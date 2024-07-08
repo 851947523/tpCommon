@@ -25,7 +25,7 @@ trait BaseQuery
             throw new Exception(Status::emptyModel());
         }
         $this->model = call_user_func_array([$this->model, $method], $args);
-        return $this;
+        return $this->model;
     }
 
     public function each($function)

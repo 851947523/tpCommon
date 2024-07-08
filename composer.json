@@ -1,6 +1,6 @@
 {
     "name": "gz/tp-common",
-    "version": "1.0.2",
+    "version": "v1.0.2",
     "license": "MIT",
     "autoload": {
         "psr-4": {
