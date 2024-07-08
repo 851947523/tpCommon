@@ -28,6 +28,12 @@ trait BaseQuery
         return $this;
     }
 
+    public function each($function)
+    {
+        $this->attrs['each'] = $function;
+        return $this;
+    }
+
     /**
      * 自动分页 针对api
      * @return array
@@ -46,12 +52,18 @@ trait BaseQuery
             if ($bool) $model = $model->cache($bool, $expire, $tag);
             $data['data'] = $model
                 ->order($this->attrs['order'] ?? '')
-                ->page(input('current_page', 1, 'intval'), input('limit', 30, 'intval'))->select()->append($this->attrs['append']??[]);
+                ->page(input('current_page', 1, 'intval'), input('limit', 30, 'intval'))
+                ->select()
+                ->append($this->attrs['append'] ?? [])
+                ->each($this->attrs['each'] ?? function ($item) {
+                    return $item;
+                });
             return $data;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
+
 
     public function selectAll($bool = false, $expire = null, $tag = '')
     {
