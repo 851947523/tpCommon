@@ -39,13 +39,10 @@ class Qny extends Base
      */
     public function buildToken($callbackUrl = "", $attr = [])
     {
-        $attr = json_encode($attr, JSON_UNESCAPED_UNICODE);
         if (!isset($this->config['ak'])) throw new Error('ak不能为空');
         if (!isset($this->config['sk'])) throw new Error('sk不能为空');
         if (!isset($this->config['bucket'])) throw new Error('bucket不能为空');
         $cachePre = 'upload_qniuyun_';
-        $config = Redis::get($cachePre);
-        if ($config && isset($config['token'])) return $config;
         $policy = [];
         if (!empty($callbackUrl)) {
             $policy = [
@@ -68,7 +65,6 @@ class Qny extends Base
             'upload_url' => $this->config['upload_url'],
             'host' => $this->config['host'] ?? '',
         ];
-        Redis::set($cachePre, $config, 600);
         return $config;
     }
 
@@ -116,24 +112,4 @@ class Qny extends Base
 //
 //    }
 
-
-    public function delete(array $key)
-    {
-        $keyArr = is_array($key) ?: [$key];
-        $accessKey = $this->config['ak'];
-        $secretKey = $this->config['sk'];
-        $bucket = $this->config['bucket'];
-        var_dump($keyArr);exit;
-        $key = "qiniu.mp4_copy";
-        $auth = new Auth($accessKey, $secretKey);
-        $config = new \Qiniu\Config();
-        $bucketManager = new \Qiniu\Storage\BucketManager($auth, $config);
-        $err = $bucketManager->delete($bucket, $key);
-        if ($err) {
-            print_r($err);
-        } else {
-
-        }
-
-    }
 }
