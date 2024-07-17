@@ -14,7 +14,7 @@
         }
     ],
      "require": {
-        "gz/utools": "dev-main",
+        "gz/utools": "v1.0.2",
         "qiniu/php-sdk": "^7.12"
     }
 }
