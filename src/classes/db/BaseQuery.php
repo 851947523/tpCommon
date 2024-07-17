@@ -28,12 +28,6 @@ trait BaseQuery
         return $this;
     }
 
-    public function each($function)
-    {
-        $this->attrs['each'] = $function;
-        return $this;
-    }
-
     /**
      * 自动分页 针对api
      * @return array
@@ -52,20 +46,12 @@ trait BaseQuery
             if ($bool) $model = $model->cache($bool, $expire, $tag);
             $data['data'] = $model
                 ->order($this->attrs['order'] ?? '')
-                ->page(input('current_page', 1, 'intval'), input('limit', 30, 'intval'))
-                ->select()
-                ->append($this->attrs['append'] ?? []);
-            if (!empty($this->attrs['each'])) {
-                $data['data'] = $data['data']->each($this->attrs['each'] ?? function ($item) {
-                    return $item;
-                });
-            }
+                ->page(input('current_page', 1, 'intval'), input('limit', 30, 'intval'))->select()->append($this->attrs['append'] ?? []);
             return $data;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
-
 
     public function selectAll($bool = false, $expire = null, $tag = '')
     {
@@ -103,22 +89,45 @@ trait BaseQuery
         return $this;
     }
 
+    public function handleFieldByAlias($field_name = '', $alias = '')
+    {
+        $field = !empty($alias) ? $alias . '.' . $field_name : $field_name;
+        return $field;
+    }
 
-//    public function update($args)
-//    {
-//        try {
-//            $param = Request::param();
-//            $model = $this->model->where('id', $param['id'])->find();
-//            foreach ($param as $k => $v) {
-//                $model->$k = $v;
-//            }
-//            $result = $model->save();
-//            return $result ? Ajax::success(Status::$editSuc) : Ajax::error(Status::$editErr);
-//        } catch (\Exception $e) {
-//            throw new Error($e->getMessage());
-//        }
-//
-//    }
+    /**
+     * 给多个字段加上别名
+     */
+    public function handleFieldsByAlias($fieldsArr, $alias = '')
+    {
+        $fieldsArr = is_array($fieldsArr) ? $fieldsArr : explode(',', $fieldsArr);
+        return array_map(function ($item) use ($alias) {
+            return $alias . $item;
+        }, $fieldsArr);
 
+    }
 
+    /**
+     * @param $id
+     * @param $attr
+     * @return array|mixed
+     */
+    public function getById($id, $attr = [])
+    {
+        return $this->where("id", $id)
+            ->field($attr['field'] ?? '*')
+            ->find();
+    }
+
+    /**
+     * @param $condition
+     * @return array|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     */
+    public function getDataByCondition($condition)
+    {
+        return $this->where($condition)->select();
+    }
 }

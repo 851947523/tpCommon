@@ -25,7 +25,6 @@ trait Notify
     {
         // 获取微信回调的XML数据
         $xmlData = file_get_contents('php://input');
-        file_put_contents('payXml',json_encode($xmlData));
         if (empty($xmlData)) throw new Error('错误响应');
         if ($type == 'v3') {
             //需要解密获取$APIv3_KEY

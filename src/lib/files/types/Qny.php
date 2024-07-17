@@ -18,6 +18,27 @@ use Qiniu\Storage\UploadManager;
  */
 class Qny extends Base
 {
+    public $config = [
+        'ak' => '',  //accessKey
+        'sk' => '',  //secretKey
+        //完成文件路径
+        'filePath' => ''
+    ];
+    public $tempToken; //临时token
+    public $auth;  //auth
+
+    /**
+     * 生成临时token,多图使用
+     * @return void
+     */
+    private function buildTempToken()
+    {
+        if (empty($this->tempToken)) {
+            $this->auth = new Auth($this->config['ak'], $this->config['sk']);
+
+        }
+        return $this;
+    }
 
     /**
      * 单个上传
@@ -27,8 +48,28 @@ class Qny extends Base
      */
     public function uploadSingle($validateType = ['file' => 'fileSize:1024000|fileExt:jpg,png,p12'], $disk = 'qny')
     {
+        $uploadMgr = new UploadManager();
+        $expires = 3600;
+        $this->buildTempToken();
+        $bucket = $this->config['bucket'];
+        $key = $this->config['key'] ?? uniqid().time();
+        $token = $this->auth->uploadToken($this->config['bucket'],$key);
+        $this->tempToken = $token;
 
-
+        list($ret, $err) = $uploadMgr->putFile($this->tempToken,$key, $this->config['filePath']);
+        if ($err) {
+            return [
+                'code' => 0,
+                'msg' => $err,
+            ];
+        } else {
+            return [
+                'code' => 1,
+                'msg' => 'ok',
+                'hash' => $ret['hash'],
+                'key' => $ret['key'],
+            ];
+        }
     }
 
 
@@ -94,6 +135,14 @@ class Qny extends Base
             return Ajax::success('上传错误');
         }
     }
+
+    /**
+     * 删除七牛云
+     */
+//    public function delete()
+//    {
+//
+//    }
 
     /**
      * 字节上传
