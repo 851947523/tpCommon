@@ -27,12 +27,12 @@ abstract class BaseBus
      */
     public $bus;
     /**
-     *  数据层
+     *  数据层类
      * datas
      */
     public $dataClass;
 
-    public $methods;
+   
 
     use Instance;
     use BaseQuery;
@@ -109,27 +109,5 @@ abstract class BaseBus
         }, $fieldsArr);
 
     }
-
-    /**
-     * 获取search 别名参数组合。如果使用witchSearch 别名的话，用到
-     * @return void
-     */
-    public function getSearchParam($alias,$attr = [])
-    {
-        return [
-            'alias' => $alias,
-            ...Request::param(),
-            ...$attr
-        ];
-    }
-
-
-
-
-
-
-
-
-
 
 }
