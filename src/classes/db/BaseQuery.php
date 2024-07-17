@@ -33,7 +33,7 @@ trait BaseQuery
      * @return array
      * @throws Exception
      */
-    public function selectPage($bool = false, $expire = 0, $tag = '')
+    public function selectPage()
     {
         if (empty($this->model)) {
             throw new Exception(Status::emptyModel());
@@ -43,7 +43,6 @@ trait BaseQuery
             /** @var  \think\Model */
             $data['count'] = $this->model->count();
             $model = $this->model;
-            if ($bool) $model = $model->cache($bool, $expire, $tag);
             $data['data'] = $model
                 ->order($this->attrs['order'] ?? '')
                 ->page(input('current_page', 1, 'intval'), input('limit', 30, 'intval'))->select()->append($this->attrs['append'] ?? []);
@@ -89,23 +88,7 @@ trait BaseQuery
         return $this;
     }
 
-    public function handleFieldByAlias($field_name = '', $alias = '')
-    {
-        $field = !empty($alias) ? $alias . '.' . $field_name : $field_name;
-        return $field;
-    }
 
-    /**
-     * 给多个字段加上别名
-     */
-    public function handleFieldsByAlias($fieldsArr, $alias = '')
-    {
-        $fieldsArr = is_array($fieldsArr) ? $fieldsArr : explode(',', $fieldsArr);
-        return array_map(function ($item) use ($alias) {
-            return $alias . $item;
-        }, $fieldsArr);
-
-    }
 
     /**
      * @param $id
