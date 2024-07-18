@@ -24,7 +24,7 @@ abstract class UploadInterface
      * 上传单个文件
      * @return mixed
      */
-    public function uploadSingle()
+    public function uploadSingle($attr = ['file' => 'fileSize:1024000|fileExt:xls,xlsx'])
     {
     }
 
