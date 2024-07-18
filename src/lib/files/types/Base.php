@@ -10,11 +10,11 @@ use Gz\TpCommon\lib\files\interfaces\UploadInterface;
  *  motto: 大自然的搬运工
  *  time: 2024-02-18
  */
-class Base implements UploadInterface
+class Base
 {
     public $config = [
-        'filename'=>'file', //上传文件参数名
-        'bucket'=> 'image', //上传空间名
+        'filename' => 'file', //上传文件参数名
+        'bucket' => 'image', //上传空间名
     ];
 
 
@@ -27,12 +27,14 @@ class Base implements UploadInterface
 
     }
 
+
     /**
      * @param $config
-     * @return $this
+     * @return UploadInterface
      */
-    public function setConfig($config){
-        $config = array_merge($this->config,$config);
+    public function setConfig($config)
+    {
+        $config = array_merge($this->config, $config);
         $this->config = $config;
         return $this;
     }

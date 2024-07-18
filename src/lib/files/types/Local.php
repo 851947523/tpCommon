@@ -13,20 +13,22 @@ use think\facade\Config;
  */
 class Local extends Base
 {
-    public function uploadSingle($validateType = ['file'=>'fileSize:1024000|fileExt:jpg,png,p12'],$disk = 'local')
+    public function uploadSingle($validateType = ['file' => 'fileSize:1024000|fileExt:jpg,png,p12'], $disk = 'local')
     {
         try {
             // 获取表单上传文件 例如上传了001.jpg
             $file = request()->file($this->config['filename']);
-            validate($validateType)->check([$this->config['filename']=>$file]);
+            validate($validateType)->check([$this->config['filename'] => $file]);
             if (!$file) return;
-             // 上传到本地服务器
-            $savename = \think\facade\Filesystem::disk($disk)->putFile('upload/' . $this->config['bucket'], $file);
+            // 上传到本地服务器
+            $savename = \think\facade\Filesystem::disk($disk)
+                ->putFile('upload/' . $this->config['bucket'], $file);
             return [
                 'path' => '/' . $savename,
                 'ext' => $file->getOriginalExtension(),
+                'dirPath' => '/upload/' . $this->config['bucket'].$file,
                 'hash' => $file->hash(),
-                'file_name'=>$file->getOriginalName(),
+                'file_name' => $file->getOriginalName(),
             ];
         } catch (\think\exception\ValidateException $e) {
             throw new Error($e->getMessage());
