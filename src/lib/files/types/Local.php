@@ -26,7 +26,7 @@ class Local extends Base
             return [
                 'path' => '/' . $savename,
                 'ext' => $file->getOriginalExtension(),
-                'dirPath' => '/upload/' . $this->config['bucket'].$file,
+                'dirPath' => '/upload/' . $this->config['bucket'],
                 'hash' => $file->hash(),
                 'file_name' => $file->getOriginalName(),
             ];
