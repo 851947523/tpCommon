@@ -18,14 +18,20 @@ trait BaseQuery
 {
     public $model;
     public $attrs;
+    private $_model;
 
     public function __call($method, $args)
     {
         if (!isset($this->model) || empty($this->model)) {
             throw new Exception(Status::emptyModel());
         }
-        $this->model = call_user_func_array([$this->model, $method], $args);
+        $this->_model = call_user_func_array([$this->model, $method], $args);
         return $this;
+    }
+
+    public function end()
+    {
+        return $this->_model;
     }
 
     /**
@@ -35,14 +41,14 @@ trait BaseQuery
      */
     public function selectPage()
     {
-        if (empty($this->model)) {
+        if (empty($this->_model)) {
             throw new Exception(Status::emptyModel());
         }
         try {
-            //var_dump($this->model);
+            //var_dump($this->_model);
             /** @var  \think\Model */
-            $data['count'] = $this->model->count();
-            $model = $this->model;
+            $data['count'] = $this->_model->count();
+            $model = $this->_model;
             $data['data'] = $model
                 ->order($this->attrs['order'] ?? '')
                 ->page(input('current_page', 1, 'intval'), input('limit', 30, 'intval'))->select()->append($this->attrs['append'] ?? []);
@@ -55,9 +61,9 @@ trait BaseQuery
     public function selectAll($bool = false, $expire = null, $tag = '')
     {
 
-        if (empty($this->model)) throw new Exception(Status::emptyModel());
+        if (empty($this->_model)) throw new Exception(Status::emptyModel());
         try {
-            $model = $this->model;
+            $model = $this->_model;
             if ($bool) {
                 $model = $model->cache($bool, $expire, $tag);
             }
@@ -84,10 +90,9 @@ trait BaseQuery
     public function withSearch($withSearch, $param = [])
     {
         $param = empty($param) ? Request::param() : $param;
-        $this->model = $this->model->withSearch($withSearch, $param);
+        $this->_model = $this->_model->withSearch($withSearch, $param);
         return $this;
     }
-
 
 
     /**
